@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        #map {
+            width: 849px;
+            height: 842px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/OsloKommune_5.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[59.86392797971689,10.670341536836712],[59.95717812081538,10.857491921146718]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            map.setMaxBounds(map.getBounds());
+        }
+        map.createPane('pane_KartverketN50topo_0');
+        map.getPane('pane_KartverketN50topo_0').style.zIndex = 400;
+        var layer_KartverketN50topo_0 = L.tileLayer('http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=topo4&zoom={z}&x={x}&y={y}', {
+            pane: 'pane_KartverketN50topo_0',
+            opacity: 1.0,
+            attribution: '<a href="https://wiki.openstreetmap.org/wiki/No:Kartverket_import">© Kartverket</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 3,
+            maxNativeZoom: 15
+        });
+        layer_KartverketN50topo_0;
+        map.addLayer(layer_KartverketN50topo_0);
+        map.createPane('pane_Sol_ned_rdt_1');
+        map.getPane('pane_Sol_ned_rdt_1').style.zIndex = 401;
+        var img_Sol_ned_rdt_1 = 'data/Sol_ned_rdt_1.png';
+        var img_bounds_Sol_ned_rdt_1 = [[59.42883661054654,9.558977763609601],[60.380145134915594,11.161862623905776]];
+        var layer_Sol_ned_rdt_1 = new L.imageOverlay(img_Sol_ned_rdt_1,
+                                              img_bounds_Sol_ned_rdt_1,
+                                              {pane: 'pane_Sol_ned_rdt_1'});
+        bounds_group.addLayer(layer_Sol_ned_rdt_1);
+        map.addLayer(layer_Sol_ned_rdt_1);
+        map.createPane('pane_Sol_ned_bl_2');
+        map.getPane('pane_Sol_ned_bl_2').style.zIndex = 402;
+        var img_Sol_ned_bl_2 = 'data/Sol_ned_bl_2.png';
+        var img_bounds_Sol_ned_bl_2 = [[59.42883661054654,9.558977763609601],[60.380145134915594,11.161862623905776]];
+        var layer_Sol_ned_bl_2 = new L.imageOverlay(img_Sol_ned_bl_2,
+                                              img_bounds_Sol_ned_bl_2,
+                                              {pane: 'pane_Sol_ned_bl_2'});
+        bounds_group.addLayer(layer_Sol_ned_bl_2);
+        map.addLayer(layer_Sol_ned_bl_2);
+        map.createPane('pane_Sol_opp_rdt_3');
+        map.getPane('pane_Sol_opp_rdt_3').style.zIndex = 403;
+        var img_Sol_opp_rdt_3 = 'data/Sol_opp_rdt_3.png';
+        var img_bounds_Sol_opp_rdt_3 = [[59.441945304787005,9.905785827020539],[60.38921769982696,11.472130809496104]];
+        var layer_Sol_opp_rdt_3 = new L.imageOverlay(img_Sol_opp_rdt_3,
+                                              img_bounds_Sol_opp_rdt_3,
+                                              {pane: 'pane_Sol_opp_rdt_3'});
+        bounds_group.addLayer(layer_Sol_opp_rdt_3);
+        map.addLayer(layer_Sol_opp_rdt_3);
+        map.createPane('pane_Sol_opp_bl_4');
+        map.getPane('pane_Sol_opp_bl_4').style.zIndex = 404;
+        var img_Sol_opp_bl_4 = 'data/Sol_opp_bl_4.png';
+        var img_bounds_Sol_opp_bl_4 = [[59.441945304787005,9.905785827020539],[60.38921769982696,11.472130809496104]];
+        var layer_Sol_opp_bl_4 = new L.imageOverlay(img_Sol_opp_bl_4,
+                                              img_bounds_Sol_opp_bl_4,
+                                              {pane: 'pane_Sol_opp_bl_4'});
+        bounds_group.addLayer(layer_Sol_opp_bl_4);
+        map.addLayer(layer_Sol_opp_bl_4);
+        function pop_OsloKommune_5(feature, layer) {
+        }
+
+        function style_OsloKommune_5_0() {
+            return {
+                pane: 'pane_OsloKommune_5',
+                opacity: 1,
+                color: 'rgba(255,250,0,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_OsloKommune_5');
+        map.getPane('pane_OsloKommune_5').style.zIndex = 405;
+        map.getPane('pane_OsloKommune_5').style['mix-blend-mode'] = 'normal';
+        var layer_OsloKommune_5 = new L.geoJson(json_OsloKommune_5, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_OsloKommune_5',
+            layerName: 'layer_OsloKommune_5',
+            pane: 'pane_OsloKommune_5',
+            onEachFeature: pop_OsloKommune_5,
+            style: style_OsloKommune_5_0,
+        });
+        bounds_group.addLayer(layer_OsloKommune_5);
+        map.addLayer(layer_OsloKommune_5);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/OsloKommune_5.png" /> Oslo Kommune': layer_OsloKommune_5,"Sol_opp_blå": layer_Sol_opp_bl_4,"Sol_opp_rødt": layer_Sol_opp_rdt_3,"Sol_ned_blå": layer_Sol_ned_bl_2,"Sol_ned_rødt": layer_Sol_ned_rdt_1,"Kartverket N50 topo": layer_KartverketN50topo_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        </script>
+    </body>
+</html>
